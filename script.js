@@ -1,14 +1,14 @@
-const speakBtn = document.getElementById('speak-btn');
-const saveBtn = document.getElementById('save-btn');
-const inputText = document.getElementById('input-text');
-const voiceSelect = document.getElementById('voice-select');
-const rateSlider = document.getElementById('rate-slider');
-const pitchSlider = document.getElementById('pitch-slider');
-const volumeSlider = document.getElementById('volume-slider');
-const rateValue = document.getElementById('rate-value');
-const pitchValue = document.getElementById('pitch-value');
-const volumeValue = document.getElementById('volume-value');
-const realtimeCheckbox = document.getElementById('realtime-checkbox');
+const speakBtn = document.getElementById("speak-btn");
+const saveBtn = document.getElementById("save-btn");
+const inputText = document.getElementById("input-text");
+const voiceSelect = document.getElementById("voice-select");
+const rateSlider = document.getElementById("rate-slider");
+const pitchSlider = document.getElementById("pitch-slider");
+const volumeSlider = document.getElementById("volume-slider");
+const rateValue = document.getElementById("rate-value");
+const pitchValue = document.getElementById("pitch-value");
+const volumeValue = document.getElementById("volume-value");
+const realtimeCheckbox = document.getElementById("realtime-checkbox");
 
 let voices = [];
 let utterance = null;
@@ -21,55 +21,117 @@ speechSynthesis.onvoiceschanged = () => {
 };
 
 function populateVoiceList() {
-  voiceSelect.innerHTML = ''; // Clear existing options
+  voiceSelect.innerHTML = ""; // Clear existing options
 
-  // Filter voices to include only those with specified attributes
-  const filteredVoices = voices.filter(voice => voice.lang.includes('en')); // Filter English voices as an example
+  // Filter voices to include those with the specified languages
+  const supportedLanguages = [
+    "en",
+    "bn",
+    "hi",
+    "ko",
+    "zh",
+    "ja",
+    "fr",
+    "de",
+    "es",
+    "it",
+    "ru",
+    "ar",
+    "pt",
+    "nl",
+    "sv",
+    "no",
+    "da",
+    "fi",
+    "el",
+    "tr",
+    "pl",
+    "th",
+    "vi",
+    "cs",
+    "hu",
+    "ro",
+    "ca",
+    "ku",
+    "sw",
+    "uk",
+    "he",
+    "id",
+    "ms",
+    "bg",
+    "sr",
+    "sk",
+    "lt",
+    "lv",
+    "et",
+    "sl",
+    "hr",
+    "bs",
+    "mk",
+    "sq",
+    "mt",
+    "is",
+    "fo",
+    "ga",
+    "cy",
+    "br",
+    "gd",
+    "gv",
+    "lb",
+    "eu",
+    "gl",
+    "ast",
+    "oc",
+    "eo",
+    "ur",
+  ];
 
-  filteredVoices.forEach((voice, index) => {
-    const option = document.createElement('option');
-    option.textContent = `${voice.name} (${voice.lang})`;
-    option.value = index;
-    voiceSelect.appendChild(option);
+  voices.forEach((voice, index) => {
+    if (supportedLanguages.some((lang) => voice.lang.startsWith(lang))) {
+      const option = document.createElement("option");
+      option.textContent = `${voice.name} (${voice.lang})`;
+      option.value = index;
+      voiceSelect.appendChild(option);
+    }
   });
 }
 
-rateSlider.addEventListener('input', () => {
+rateSlider.addEventListener("input", () => {
   rateValue.textContent = rateSlider.value;
   if (utterance) {
     utterance.rate = rateSlider.value;
   }
 });
 
-pitchSlider.addEventListener('input', () => {
+pitchSlider.addEventListener("input", () => {
   pitchValue.textContent = pitchSlider.value;
   if (utterance) {
     utterance.pitch = pitchSlider.value;
   }
 });
 
-volumeSlider.addEventListener('input', () => {
+volumeSlider.addEventListener("input", () => {
   volumeValue.textContent = volumeSlider.value;
   if (utterance) {
     utterance.volume = volumeSlider.value;
   }
 });
 
-speakBtn.addEventListener('click', () => {
+speakBtn.addEventListener("click", () => {
   speak();
 });
 
-saveBtn.addEventListener('click', () => {
+saveBtn.addEventListener("click", () => {
   saveSpeech();
 });
 
-inputText.addEventListener('input', () => {
+inputText.addEventListener("input", () => {
   if (isRealtime) {
     speak();
   }
 });
 
-realtimeCheckbox.addEventListener('change', () => {
+realtimeCheckbox.addEventListener("change", () => {
   isRealtime = realtimeCheckbox.checked;
   if (!isRealtime && utterance) {
     speechSynthesis.cancel();
@@ -84,7 +146,7 @@ function speak() {
   const pitch = pitchSlider.value;
   const volume = volumeSlider.value;
 
-  if (textToSpeak !== '') {
+  if (textToSpeak !== "") {
     if (utterance) {
       speechSynthesis.cancel();
     }
@@ -105,31 +167,32 @@ async function saveSpeech() {
   const pitch = pitchSlider.value;
   const volume = volumeSlider.value;
 
-  if (textToSpeak !== '') {
+  if (textToSpeak !== "") {
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.voice = voices[selectedVoiceIndex];
     utterance.rate = rate;
     utterance.pitch = pitch;
     utterance.volume = volume;
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioContext = new (window.AudioContext ||
+      window.webkitAudioContext)();
     const destination = audioContext.createMediaStreamDestination();
     const mediaRecorder = new MediaRecorder(destination.stream);
     const chunks = [];
 
-    mediaRecorder.ondataavailable = event => {
+    mediaRecorder.ondataavailable = (event) => {
       if (event.data.size > 0) {
         chunks.push(event.data);
       }
     };
 
     mediaRecorder.onstop = () => {
-      const blob = new Blob(chunks, { type: 'audio/wav' });
+      const blob = new Blob(chunks, { type: "audio/wav" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
+      const a = document.createElement("a");
+      a.style.display = "none";
       a.href = url;
-      a.download = 'speech.wav';
+      a.download = "speech.wav";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

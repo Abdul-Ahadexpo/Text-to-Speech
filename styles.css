@@ -1,98 +1,192 @@
 /* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
+/* Body styles */
 body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+  margin: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
+  background: linear-gradient(135deg, #ffb0ad, #fddfdc, #fba9b5);
+  background-size: cover;
+  font-family: "Pacifico", cursive; /* Changed to Pacifico font */
+  animation: gradientAnimation 15s ease infinite;
+  overflow: hidden; /* Hide overflow to prevent scrollbars */
 }
 
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Container styles */
 .container {
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  background: linear-gradient(
+    200deg,
+    #f29a97,
+    #ffe1de,
+    #fda1ae
+  ); /* linear-gradient pink background */
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 0 20px 5px rgba(255, 94, 132, 0.8); /* Updated box-shadow */
   text-align: center;
-  animation: fadeIn 1s ease-in-out;
-  width: 100%;
-  max-width: 600px;
+  position: relative;
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite;
+  background-size: cover;
 }
 
+/* Heading styles */
 h1 {
-  font-size: 2rem;
-  color: #ffffff;
+  font-size: 2.5rem;
+  color: #333333;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Textarea styles */
 textarea {
-  width: 100%;
+  width: calc(100% - 20px); /* Adjusting for padding */
   height: 150px;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-family: "Comic Sans MS", Pacifico, cursive, sans-serif; /* Changed to Pacifico font */
   padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+  margin: 0 10px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
   transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+  border-color: #9acffa;
+  box-shadow: 0 0 10px rgba(154, 207, 250, 0.5);
 }
 
-select, .slider-container {
-  width: 100%;
-  font-size: 1rem;
+/* Select and slider container styles */
+select,
+.slider-container {
+  width: calc(100% - 20px); /* Adjusting for padding */
+  font-size: 1.2rem;
+  font-family: "Comic Sans MS", Pacifico, cursive, sans-serif; /* Changed to Pacifico font */
   padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+  margin: 0 10px 20px;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
   transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-select:focus, .slider-container:focus-within {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+select:focus,
+.slider-container:focus-within {
+  border-color: #9acffa;
+  box-shadow: 0 0 10px rgba(154, 207, 250, 0.5);
 }
 
+/* Slider container styles */
 .slider-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* Button styles */
 button {
-  font-size: 1rem;
-  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-family: "Comic Sans MS", Pacifico, cursive, sans-serif; /* Changed to Pacifico font */
+  padding: 12px 24px;
   color: #ffffff;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #ff9999, #ff80b3);
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease-in-out, transform 0.2s;
   margin: 10px 0;
+  box-shadow: 0 4px 10px rgba(255, 179, 179, 0.3);
 }
 
 button:hover {
-  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  background: linear-gradient(135deg, #ff6666, #ff66b3);
+  transform: translateY(-3px); /* Floating effect on hover */
 }
 
 button:active {
   transform: scale(0.95);
 }
 
-h4 {
-  margin-top: 20px;
-  color: #0e0e0e;
+/* Checkbox container styles */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
+.checkbox-container input[type="checkbox"] {
+  display: none; /* Hide the actual checkbox */
+}
+
+.checkbox-container label {
+  position: relative;
+  padding-left: 30px; /* Space for the custom checkbox */
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.checkbox-container label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  border-radius: 3px; /* Adjust border-radius for the checkbox */
+  transition: border-color 0.3s ease-in-out;
+}
+
+.checkbox-container input[type="checkbox"]:checked + label:before {
+  background-color: #9acffa;
+  border-color: #9acffa;
+}
+
+.checkbox-container label:after {
+  content: "Real-time Playback"; /* Label text */
+  position: relative;
+  font-family: "Comic Sans MS", Pacifico, cursive, sans-serif;
+  margin-left: 10px; /* Space between checkbox and text */
+}
+
+/* Additional styles */
+h4 {
+  margin-top: 20px;
+  color: #000000;
+  font-size: 1rem;
+  font-family: "Comic Sans MS", Pacifico, cursive, sans-serif; /* Changed to Pacifico font */
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Made by Abdul Ahad */
+.made-by {
+  position: absolute;
+  bottom: 10px;
+  font-size: 5rem;
+  left: 0;
+  right: 0;
+  font-size: 1rem;
+  color: #3f3f3f;
+}
+
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -101,5 +195,37 @@ h4 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Cute background animation */
+.container::before,
+.container::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  animation: float 5s ease-in-out infinite alternate;
+}
+
+.container::before {
+  top: -75px;
+  left: -75px;
+}
+
+.container::after {
+  bottom: -75px;
+  right: -75px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
   }
 }
